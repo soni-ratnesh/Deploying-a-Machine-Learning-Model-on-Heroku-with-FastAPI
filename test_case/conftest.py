@@ -1,7 +1,8 @@
 import pytest
 import yaml
 import pandas as pd
-
+from fastapi.testclient import TestClient
+from main import app
 from starter.ml.data import clean_dataset
 
 
@@ -89,3 +90,12 @@ def inference_data_high():
     df = pd.DataFrame(data=data_dict.values(),
                       index=data_dict.keys()).T
     return df
+
+
+@pytest.fixture
+def client():
+    """
+    Get dataset
+    """
+    api_client = TestClient(app)
+    return api_client

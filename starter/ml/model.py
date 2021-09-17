@@ -1,11 +1,13 @@
+import logging
+from numpy import mean
+from numpy import std
+
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import cross_val_score
 
-import logging
-from numpy import mean
-from numpy import std
+from .data import process_data
 
 
 # Optional: implement hyperparameter tuning.
@@ -61,7 +63,7 @@ def inference(model, x):
 
     Inputs
     ------
-    model : ???
+    model : RandomForestClassifier
         Trained machine learning model.
     X : np.array
         Data used for prediction.
@@ -72,3 +74,37 @@ def inference(model, x):
     """
     preds = model.predict(x)
     return preds
+
+
+def compute_score_per_slice(trained_model, test, encoder, lb, cat_features):
+    """
+    Compute score per category class slice
+    Parameters
+    ----------
+    trained_model
+    test
+    encoder
+    lb
+
+    Returns
+    -------
+
+    """
+    with open('data/model/slice_output.txt', 'w') as file:
+        for category in cat_features:
+            for cls in test[category].unique():
+                temp_df = test[test[category] == cls]
+
+                x_test, y_test, _, _ = process_data(
+                    temp_df,
+                    categorical_features=cat_features, training=False,
+                    label="salary", encoder=encoder, lb=lb)
+
+                y_pred = trained_model.predict(x_test)
+
+                prc, rcl, fb = compute_model_metrics(y_test, y_pred)
+
+                metric_info = "[%s]-[%s] Precision: %s " \
+                              "Recall: %s FBeta: %s" % (category, cls, prc, rcl, fb)
+                logging.info(metric_info)
+                file.write(metric_info + '\n')

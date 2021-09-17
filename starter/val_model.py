@@ -3,7 +3,7 @@ from .ml.data import process_data
 from .ml.model import compute_model_metrics, compute_score_per_slice
 
 
-def test_model(test_df, cat_features, root_dir):
+def val_model(test_df, cat_features, root_dir):
     """
 
     Parameters

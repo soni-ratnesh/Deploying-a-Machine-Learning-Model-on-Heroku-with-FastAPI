@@ -1,4 +1,3 @@
-import argparse
 import hydra
 import logging
 from starter.ml.data import data_cleaning_stage

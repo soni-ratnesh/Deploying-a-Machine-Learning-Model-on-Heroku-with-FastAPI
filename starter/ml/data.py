@@ -1,9 +1,11 @@
+import os
+
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 
-def data_cleaning_stage():
+def data_cleaning_stage(root_path):
     """
     data cleaning
     """
@@ -12,17 +14,19 @@ def data_cleaning_stage():
         """
         Clean the dataset
         """
+        print(df.columns)
         df.replace({'?': None}, inplace=True)
         df.dropna(inplace=True)
-        df.drop("fnlgt", axis="columns", inplace=True)
-        df.drop("education-num", axis="columns", inplace=True)
-        df.drop("capital-gain", axis="columns", inplace=True)
-        df.drop("capital-loss", axis="columns", inplace=True)
+        df.drop_duplicates(inplace=True)
+        df.drop("education-num", axis=1, inplace=True)
+        df.drop("capital-gain", axis=1, inplace=True)
+        df.drop("capital-loss", axis=1, inplace=True)
         return df
 
-    df = pd.read_csv("data/raw/census.csv")
+    print(root_path)
+    df = pd.read_csv(f"{root_path}/data/raw/census.csv", skipinitialspace=True)
     df = clean_dataset(df)
-    df.to_csv("data/clean/census.csv", index=False)
+    df.to_csv(f"{root_path}/data/clean/census.csv", index=False)
 
 
 def process_data(

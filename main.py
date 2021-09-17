@@ -1,7 +1,7 @@
 import argparse
 import hydra
 import logging
-
+from starter.ml.data import data_cleaning_stage
 from omegaconf import DictConfig
 
 _steps = [
@@ -26,13 +26,16 @@ def go(config: DictConfig):
 
     if "data_cleaning" in active_steps:
         logging.info("Cleaning and saving raw_data")
+        data_cleaning_stage()
+
 
     if "train_test_model" in active_steps:
         logging.info("Train/Test model procedure started")
+        pass
 
     if "check_score" in active_steps:
         logging.info("Score check procedure started")
-
+        pass
 
 if __name__ == "__main__":
     """

@@ -1,4 +1,4 @@
 main:
   project_name:  Deploying a Machine Learning Model on Heroku with FastAPI
   experiment_name: development
-  steps: all
+  steps: data_cleaning

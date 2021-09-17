@@ -21,5 +21,5 @@ def test_model(test_df, cat_features, root_dir):
     encoder = load(f"{root_dir}/model/encoder.joblib")
     lb = load(f"{root_dir}/model/lb.joblib")
 
-    compute_score_per_slice(trained_model, test_df, encoder, lb, cat_features)
+    compute_score_per_slice(trained_model, test_df, encoder, lb, cat_features, root_dir)
 

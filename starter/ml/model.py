@@ -76,7 +76,7 @@ def inference(model, x):
     return preds
 
 
-def compute_score_per_slice(trained_model, test, encoder, lb, cat_features):
+def compute_score_per_slice(trained_model, test, encoder, lb, cat_features, root_path):
     """
     Compute score per category class slice
     Parameters
@@ -90,7 +90,7 @@ def compute_score_per_slice(trained_model, test, encoder, lb, cat_features):
     -------
 
     """
-    with open('data/model/slice_output.txt', 'w') as file:
+    with open(f'{root_path}/model/slice_output.txt', 'w') as file:
         for category in cat_features:
             for cls in test[category].unique():
                 temp_df = test[test[category] == cls]

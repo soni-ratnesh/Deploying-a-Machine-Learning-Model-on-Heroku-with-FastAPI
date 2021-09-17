@@ -1,4 +1,3 @@
-
 import os
 import yaml
 
@@ -43,4 +42,3 @@ async def inference(input_data: ModelInput):
     prediction = run_inference(input_df, cat_features)
 
     return {"prediction": prediction}
-

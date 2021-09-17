@@ -51,9 +51,9 @@ def train_save_model(train, cat_features, root_path):
     # train model
     trained_model = train_model(x_train, y_train)
     # save model
-    dump(trained_model, f"{root_path}/data/model/model.joblib")
-    dump(encoder, f"{root_path}/data/model/encoder.joblib")
-    dump(lb, f"{root_path}/data/model/lb.joblib")
+    dump(trained_model, f"{root_path}/model/model.joblib")
+    dump(encoder, f"{root_path}/model/encoder.joblib")
+    dump(lb, f"{root_path}/model/lb.joblib")
 
 # # Proces the test data with the process_data function.
 # X_test, y_test, _, _ = process_data(test, categorical_features=cat_features, label="salary", training=False,

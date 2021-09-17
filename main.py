@@ -20,12 +20,12 @@ with open('config.yml') as f:
 app = FastAPI()
 
 
-@app.get("/")
+@app.get("/", methods=['GET'])
 async def get_items():
     return {"message": "Greetings!"}
 
 
-@app.post("/")
+@app.post("/", methods=['POST'])
 async def inference(input_data: ModelInput):
 
     input_data = input_data.dict()

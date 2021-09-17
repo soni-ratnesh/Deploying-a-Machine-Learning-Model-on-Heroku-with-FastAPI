@@ -2,3 +2,15 @@ main:
   project_name:  Deploying a Machine Learning Model on Heroku with FastAPI
   experiment_name: development
   steps: data_cleaning
+
+data:
+  cat_features : [
+      "workclass",
+      "education",
+      "marital-status",
+      "occupation",
+      "relationship",
+      "race",
+      "sex",
+      "native-country",
+  ]

@@ -38,7 +38,8 @@ def train_model(X_train, y_train):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using precision,
+    recall, and F1.
 
     Inputs
     ------
@@ -111,6 +112,7 @@ def compute_score_per_slice(
                 prc, rcl, fb = compute_model_metrics(y_test, y_pred)
 
                 metric_info = "[%s]-[%s] Precision: %s " \
-                              "Recall: %s FBeta: %s" % (category, cls, prc, rcl, fb)
+                              "Recall: %s FBeta: %s" % (category, cls,
+                                                        prc, rcl, fb)
                 logging.info(metric_info)
                 file.write(metric_info + '\n')

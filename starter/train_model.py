@@ -4,8 +4,8 @@ import pandas as pd
 
 from joblib import dump, load
 from sklearn.model_selection import train_test_split
-from ml.data import process_data
-from ml.model import train_model, compute_model_metrics
+from .ml.data import process_data
+from .ml.model import train_model, compute_model_metrics
 
 
 def get_train_test_data(root_path):
@@ -20,7 +20,7 @@ def get_train_test_data(root_path):
     -------
     train_df , test_df
     """
-    data = pd.read_csv(f"data/clean/census.csv")
+    data = pd.read_csv(f"{root_path}/data/clean/census.csv")
     train_df, test_df = train_test_split(data, test_size=0.20)
 
     return train_df, test_df
@@ -51,7 +51,7 @@ def train_save_model(train, cat_features, root_path):
     # train model
     trained_model = train_model(x_train, y_train)
     # save model
-    dump(trained_model, f"{root_path}data/model/model.joblib")
+    dump(trained_model, f"{root_path}/data/model/model.joblib")
     dump(encoder, f"{root_path}/data/model/encoder.joblib")
     dump(lb, f"{root_path}/data/model/lb.joblib")
 

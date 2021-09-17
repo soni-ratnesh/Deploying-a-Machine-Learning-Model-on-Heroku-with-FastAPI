@@ -8,6 +8,6 @@ fastapi==0.63.0
 uvicorn
 gunicorn
 
-Hydra~=2.5
+Hydra-Core
 omegaconf~=2.1.1
 setuptools~=58.0.4

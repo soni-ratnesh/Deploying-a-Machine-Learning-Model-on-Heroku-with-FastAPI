@@ -1,9 +1,32 @@
 import numpy as np
+import pandas as pd
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
 
+def data_cleaning_stage():
+    """
+    data cleaning
+    """
+
+    def clean_dataset(df):
+        """
+        Clean the dataset
+        """
+        df.replace({'?': None}, inplace=True)
+        df.dropna(inplace=True)
+        df.drop("fnlgt", axis="columns", inplace=True)
+        df.drop("education-num", axis="columns", inplace=True)
+        df.drop("capital-gain", axis="columns", inplace=True)
+        df.drop("capital-loss", axis="columns", inplace=True)
+        return df
+
+    df = pd.read_csv("data/raw/census.csv")
+    df = clean_dataset(df)
+    df.to_csv("data/clean/census.csv", index=False)
+
+
 def process_data(
-    X, categorical_features=[], label=None, training=True, encoder=None, lb=None
+        x, categorical_features=[], label=None, training=True, encoder=None, lb=None
 ):
     """ Process the data used in the machine learning pipeline.
 
@@ -44,27 +67,29 @@ def process_data(
         passed in.
     """
 
+    if categorical_features is None:
+        categorical_features = list()
     if label is not None:
-        y = X[label]
-        X = X.drop([label], axis=1)
+        y = x[label]
+        x = x.drop([label], axis=1)
     else:
         y = np.array([])
 
-    X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1)
+    x_categorical = x[categorical_features].values
+    x_continuous = x.drop(*[categorical_features], axis=1)
 
     if training is True:
         encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
         lb = LabelBinarizer()
-        X_categorical = encoder.fit_transform(X_categorical)
+        x_categorical = encoder.fit_transform(x_categorical)
         y = lb.fit_transform(y.values).ravel()
     else:
-        X_categorical = encoder.transform(X_categorical)
+        x_categorical = encoder.transform(x_categorical)
         try:
             y = lb.transform(y.values).ravel()
         # Catch the case where y is None because we're doing inference.
         except AttributeError:
             pass
 
-    X = np.concatenate([X_continuous, X_categorical], axis=1)
-    return X, y, encoder, lb
+    x = np.concatenate([x_continuous, x_categorical], axis=1)
+    return x, y, encoder, lb

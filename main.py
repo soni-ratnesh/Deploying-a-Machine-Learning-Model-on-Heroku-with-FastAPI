@@ -3,6 +3,7 @@ import hydra
 import logging
 from starter.ml.data import data_cleaning_stage
 from starter.train_model import get_train_test_data, train_save_model
+from starter.test_model import test_model
 from omegaconf import DictConfig
 
 _steps = [
@@ -38,7 +39,8 @@ def go(config: DictConfig):
 
     if "check_score" in active_steps:
         logging.info("Score check procedure started")
-        pass
+        test_model(test_df, cat_features, root_path)
+
 
 if __name__ == "__main__":
     """

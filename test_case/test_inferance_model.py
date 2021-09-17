@@ -11,4 +11,3 @@ def test_run_inference_high(inference_data_high, cat_features):
     prediction = run_inference(inference_data_high, cat_features)
 
     assert prediction == ">50K"
-

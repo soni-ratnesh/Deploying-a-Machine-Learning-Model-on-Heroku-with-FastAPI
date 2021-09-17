@@ -1,4 +1,6 @@
 [core]
-    remote = localremote
+    remote = remote_data
 ['remote "localremote"']
     url = ../../local/remote
+['remote "remote_data"']
+    url = s3://devdvc/ml

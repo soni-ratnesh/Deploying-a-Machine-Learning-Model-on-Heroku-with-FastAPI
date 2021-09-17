@@ -3,7 +3,7 @@ from .ml.data import process_data
 from .ml.model import inference
 
 
-def run_inference(data, cat_features, root_path):
+def run_inference(data, cat_features):
     """
     Load model and run inference
     Parameters
@@ -16,9 +16,9 @@ def run_inference(data, cat_features, root_path):
     -------
     prediction
     """
-    model = load(f"{root_path}/model/model.joblib")
-    encoder = load(f"{root_path}/model/encoder.joblib")
-    lb = load(f"{root_path}/model/lb.joblib")
+    model = load("model/model.joblib")
+    encoder = load("model/encoder.joblib")
+    lb = load("model/lb.joblib")
 
     X, _, _, _ = process_data(
         data,

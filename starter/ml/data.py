@@ -23,7 +23,6 @@ def data_cleaning_stage(root_path):
         df.drop("capital-loss", axis=1, inplace=True)
         return df
 
-    print(root_path)
     df = pd.read_csv(f"{root_path}/data/raw/census.csv", skipinitialspace=True)
     df = clean_dataset(df)
     df.to_csv(f"{root_path}/data/clean/census.csv", index=False)

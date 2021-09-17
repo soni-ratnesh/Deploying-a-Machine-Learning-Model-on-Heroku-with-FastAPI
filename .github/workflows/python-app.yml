@@ -22,11 +22,15 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          pip install flake8 pytest
       - name: Setup DVC
         uses: iterative/setup-dvc@v1
       - name: Pull data from DVC
         run: dvc pull -R
+      - name: Run Flake8
+        run: flake8
       - name: Run pytest
         run: pytest
      
